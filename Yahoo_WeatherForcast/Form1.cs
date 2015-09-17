@@ -31,33 +31,8 @@ namespace Yahoo_WeatherForcast
 
         }
 
-        /*
-         public static string GetHtml(string url, Encoding encoding)
-       {
-        string html = string.Empty;
-        try
-        {
-            WebRequest request;
-            request = WebRequest.Create(url);
-            request.Credentials = CredentialCache.DefaultCredentials;
-            request.Timeout = 20000;
-            WebResponse response;
-            response = request.GetResponse();
-            html = new StreamReader(response.GetResponseStream(), encoding).ReadToEnd(); //此处返回的数据为 xml数据 
-
-        }
-        catch (System.UriFormatException uex)
-        {
-            Console.WriteLine(uex.Message);
-        }
-        catch (System.Net.WebException ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        return html;
-       }
-
-        */
+        //http://weather.yahooapis.com/forecastrss?w=23424781&u=c
+        
 
         //获取yahoo api数据,并用Listview显示出来
          private DataSet ReadXMl(string XMLFileStream)
@@ -71,14 +46,33 @@ namespace Yahoo_WeatherForcast
                  weather.Load(txtRequest.Text); //直接通过读取URL获取xml数据 
                  XmlNamespaceManager NSMamager = new XmlNamespaceManager(weather.NameTable); //NameSpaceManager -> NSManager
                  NSMamager.AddNamespace("yweather", "http://xml.weather.yahoo.com/ns/rss/1.0");
-                 XmlNodeList Nodes = weather.SelectNodes("/rss/channel/item/yweather:forecast", NSMamager);
+                 XmlNodeList Nodes = weather.SelectNodes("/rss/channel/item/yweather:forecast", NSMamager); //获取单个节点内的所有内容
                  //XmlNodeList picNode = weather.SelectNodes("/res/channel/image", NSMamager);
+                 
+                 //用于获取xml表中的元素
+                 XmlElement root = weather.DocumentElement;
+                 XmlNode WeatherT = root.SelectSingleNode("descendant::yweather:units", NSMamager);
+
+                 XmlNode description = root.SelectSingleNode("descendant::description", NSMamager);
+
+                 XmlNode Image = root.SelectSingleNode("descendant::image", NSMamager); //获取yahoo 图标的参数
 
 
 
                  DataSet dstWeather = new DataSet();
                  DataTable dtblWeather = new DataTable("Weather");
+
+                 DataTable dtbWeatherUnits = new DataTable("WeatherUnits");
+                 DataTable dtbdescription = new DataTable("Description");
+
+                 DataTable dtbImage = new DataTable("Image");
+
+
                  dstWeather.Tables.Add(dtblWeather);
+                 dstWeather.Tables.Add(dtbWeatherUnits);
+                 dstWeather.Tables.Add(dtbdescription);
+                 dstWeather.Tables.Add(dtbImage);
+
 
                  dstWeather.Tables["Weather"].Columns.Add("Date", typeof(string));
                  dstWeather.Tables["Weather"].Columns.Add("Week", typeof(string));
@@ -86,6 +80,50 @@ namespace Yahoo_WeatherForcast
                  dstWeather.Tables["Weather"].Columns.Add("Tlow", typeof(string));
                  dstWeather.Tables["Weather"].Columns.Add("Thigh", typeof(string));
 
+
+                 dstWeather.Tables["WeatherUnits"].Columns.Add("temperature", typeof(string));
+                 dstWeather.Tables["WeatherUnits"].Columns.Add("speed", typeof(string));
+
+
+                 dstWeather.Tables["Description"].Columns.Add("description", typeof(string));
+
+
+                 dstWeather.Tables["Image"].Columns.Add("width", typeof(string));
+                 dstWeather.Tables["Image"].Columns.Add("height", typeof(string));
+                 dstWeather.Tables["Image"].Columns.Add("url", typeof(string));
+
+                     
+
+
+
+   
+                         //yweather:units
+                         DataRow drowWeatherUnit = dstWeather.Tables["WeatherUnits"].NewRow();
+                         string speed = WeatherT.Attributes["speed"].Value.ToString();
+                         string temperature = WeatherT.Attributes["temperature"].Value.ToString();
+
+                         drowWeatherUnit["temperature"] = temperature;
+                         drowWeatherUnit["speed"] = speed;
+                         dstWeather.Tables["WeatherUnits"].Rows.Add(drowWeatherUnit);
+
+                          //Description
+                         DataRow drowDescription = dstWeather.Tables["Description"].NewRow();
+                         string descri = description.InnerText;
+                         drowDescription["description"] = descri;
+                         dstWeather.Tables["Description"].Rows.Add(drowDescription);
+
+
+                         if (Image.HasChildNodes == true) //判断是否有子节点
+                         {
+                             XmlNodeList ImageNodes = Image.ChildNodes;
+                            
+                                 DataRow drowImage = dstWeather.Tables["Image"].NewRow();
+                                 drowImage["height"] = Image.SelectSingleNode("height").InnerText;
+                                 drowImage["width"] = Image.SelectSingleNode("width").InnerText;
+                                 drowImage["url"] = Image.SelectSingleNode("url").InnerText;
+                                 dstWeather.Tables["Image"].Rows.Add(drowImage);
+                             
+                         }
                  if (Nodes.Count > 0)
                  {
                      foreach (XmlNode node in Nodes)
@@ -177,6 +215,9 @@ namespace Yahoo_WeatherForcast
 
              DataSet WeatherDS = ReadXMl(txtRequest.Text);
              DataTable WeatherDt = WeatherDS.Tables["Weather"]; //取出天气表格
+             DataTable weatherT = WeatherDS.Tables["WeatherUnits"]; //数据数据用于测试
+             DataTable description = WeatherDS.Tables["Description"];
+             DataTable Image = WeatherDS.Tables["Image"]; //获取yahoo logo的参数 
 
              //定义列表头
              ColumnHeader header1 = new ColumnHeader(); //定义列头1
@@ -199,17 +240,61 @@ namespace Yahoo_WeatherForcast
              header5.Width = 100;
              header5.Text = "THight";
 
+             ColumnHeader HeaderTest = new ColumnHeader();
+             HeaderTest.Width = 100;
+             HeaderTest.Text = "Temperature";
+
+             ColumnHeader HeaderTest1 = new ColumnHeader();
+             HeaderTest1.Width = 100;
+             HeaderTest1.Text = "Speed";
+
+
              this.listView1.Columns.Add(header1);
              this.listView1.Columns.Add(header2);
              this.listView1.Columns.Add(header3);
              this.listView1.Columns.Add(header4);
              this.listView1.Columns.Add(header5);
 
+             this.listView2.Columns.Add(HeaderTest);
+             this.listView2.Columns.Add(HeaderTest1);
+
+
              this.listView1.View = View.Details;
+             this.listView2.View = View.Details;
 
              this.listView1.GridLines = true;
+             this.listView2.GridLines = true;
 
-             
+
+
+             foreach (DataRow descriptionRow in description.Rows)
+             {
+                 string descp = descriptionRow["description"].ToString();
+                 this.Text = descp;
+             }
+
+             foreach (DataRow imageinfo in Image.Rows)
+             {
+                 //string width = imageinfo["width"].ToString(); //获取图片的大小
+                 //string height = imageinfo["height"].ToString(); //获取图片的大小
+                 string url = imageinfo["url"].ToString();
+                
+                 //pictureBox1.Width = Convert.ToInt32(width);
+                 //pictureBox1.Height = Convert.ToInt32(height);
+                 pictureBox1.Image = System.Drawing.Image.FromStream(System.Net.WebRequest.Create(url).GetResponse().GetResponseStream());
+             }
+                 
+
+             foreach (DataRow weatherRowT in weatherT.Rows)
+             {
+                 string weather = weatherRowT["temperature"].ToString();
+                 string speed = weatherRowT["speed"].ToString();
+                 string[] strarry = { weather,speed };
+                 ListViewItem listv = new ListViewItem(strarry);
+               //  MessageBox.Show(test);
+                 this.listView2.Items.Add(listv);
+             }
+
              foreach (DataRow weatherRow in WeatherDt.Rows)
              {
                  
@@ -224,7 +309,10 @@ namespace Yahoo_WeatherForcast
                  this.listView1.Items.Add(list);
 
 
-             }      
+             }    
+  
+
+
          }
 
        }

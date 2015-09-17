@@ -31,14 +31,17 @@
             this.btnSentRequest = new System.Windows.Forms.Button();
             this.txtRequest = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.listView2 = new System.Windows.Forms.ListView();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSentRequest
             // 
-            this.btnSentRequest.Location = new System.Drawing.Point(471, 117);
+            this.btnSentRequest.Location = new System.Drawing.Point(503, 117);
             this.btnSentRequest.Name = "btnSentRequest";
             this.btnSentRequest.Size = new System.Drawing.Size(75, 23);
             this.btnSentRequest.TabIndex = 0;
@@ -48,43 +51,61 @@
             // 
             // txtRequest
             // 
-            this.txtRequest.Location = new System.Drawing.Point(106, 71);
+            this.txtRequest.Location = new System.Drawing.Point(107, 90);
             this.txtRequest.Name = "txtRequest";
             this.txtRequest.Size = new System.Drawing.Size(486, 21);
             this.txtRequest.TabIndex = 1;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.listView2);
             this.groupBox1.Controls.Add(this.listView1);
-            this.groupBox1.Location = new System.Drawing.Point(24, 155);
+            this.groupBox1.Location = new System.Drawing.Point(25, 199);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(568, 370);
+            this.groupBox1.Size = new System.Drawing.Size(568, 280);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "获取到的数据";
             // 
+            // listView2
+            // 
+            this.listView2.Location = new System.Drawing.Point(17, 178);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(504, 83);
+            this.listView2.TabIndex = 4;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(18, 29);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(504, 143);
+            this.listView1.TabIndex = 3;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 74);
+            this.label1.Location = new System.Drawing.Point(24, 93);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 12);
             this.label1.TabIndex = 4;
             this.label1.Text = "Requeset URL";
             // 
-            // listView1
+            // pictureBox1
             // 
-            this.listView1.Location = new System.Drawing.Point(18, 58);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(504, 285);
-            this.listView1.TabIndex = 3;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(253, 82);
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 582);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.txtRequest);
@@ -93,6 +114,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -105,6 +127,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
