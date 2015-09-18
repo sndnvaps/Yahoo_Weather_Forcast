@@ -35,6 +35,7 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnEtouch = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -100,11 +101,22 @@
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
+            // btnEtouch
+            // 
+            this.btnEtouch.Location = new System.Drawing.Point(25, 508);
+            this.btnEtouch.Name = "btnEtouch";
+            this.btnEtouch.Size = new System.Drawing.Size(100, 23);
+            this.btnEtouch.TabIndex = 7;
+            this.btnEtouch.Text = "万年历天气预报";
+            this.btnEtouch.UseVisualStyleBackColor = true;
+            this.btnEtouch.Click += new System.EventHandler(this.btnEtouch_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 582);
+            this.Controls.Add(this.btnEtouch);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
@@ -129,6 +141,7 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnEtouch;
     }
 }
 

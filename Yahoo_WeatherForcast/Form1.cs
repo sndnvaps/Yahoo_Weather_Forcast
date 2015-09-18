@@ -115,7 +115,7 @@ namespace Yahoo_WeatherForcast
 
                          if (Image.HasChildNodes == true) //判断是否有子节点
                          {
-                             XmlNodeList ImageNodes = Image.ChildNodes;
+                             //XmlNodeList ImageNodes = Image.ChildNodes;
                             
                                  DataRow drowImage = dstWeather.Tables["Image"].NewRow();
                                  drowImage["height"] = Image.SelectSingleNode("height").InnerText;
@@ -313,6 +313,12 @@ namespace Yahoo_WeatherForcast
   
 
 
+         }
+
+         private void btnEtouch_Click(object sender, EventArgs e)
+         {
+             Etouch etouch = new Etouch();
+             etouch.Show();
          }
 
        }
