@@ -174,6 +174,7 @@ namespace Yahoo_WeatherForcast
                  DataTable dtblWeather = new DataTable("Weather");
                  dsWeather.Tables.Add(dtblWeather);
                  DataRow drowNone = dsWeather.Tables["Weather"].NewRow();
+
                  dsWeather.Tables["Weather"].Columns.Add("Date", typeof(string));
                  dsWeather.Tables["Weather"].Columns.Add("Week", typeof(string));
                  dsWeather.Tables["Weather"].Columns.Add("Weather", typeof(string));
@@ -319,6 +320,12 @@ namespace Yahoo_WeatherForcast
          {
              Etouch etouch = new Etouch();
              etouch.Show();
+         }
+
+         private void btnWeather_com_Click(object sender, EventArgs e) //中国气象网预报
+         {
+             Weather we = new Weather();
+             we.Show();
          }
 
        }

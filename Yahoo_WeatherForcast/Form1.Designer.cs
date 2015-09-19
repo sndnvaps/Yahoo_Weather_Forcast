@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnEtouch = new System.Windows.Forms.Button();
+            this.btnWeather_com = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -103,7 +104,7 @@
             // 
             // btnEtouch
             // 
-            this.btnEtouch.Location = new System.Drawing.Point(25, 508);
+            this.btnEtouch.Location = new System.Drawing.Point(12, 500);
             this.btnEtouch.Name = "btnEtouch";
             this.btnEtouch.Size = new System.Drawing.Size(100, 23);
             this.btnEtouch.TabIndex = 7;
@@ -111,11 +112,22 @@
             this.btnEtouch.UseVisualStyleBackColor = true;
             this.btnEtouch.Click += new System.EventHandler(this.btnEtouch_Click);
             // 
+            // btnWeather_com
+            // 
+            this.btnWeather_com.Location = new System.Drawing.Point(12, 529);
+            this.btnWeather_com.Name = "btnWeather_com";
+            this.btnWeather_com.Size = new System.Drawing.Size(100, 23);
+            this.btnWeather_com.TabIndex = 8;
+            this.btnWeather_com.Text = "中国气象网预报";
+            this.btnWeather_com.UseVisualStyleBackColor = true;
+            this.btnWeather_com.Click += new System.EventHandler(this.btnWeather_com_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 582);
+            this.Controls.Add(this.btnWeather_com);
             this.Controls.Add(this.btnEtouch);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
@@ -142,6 +154,7 @@
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnEtouch;
+        private System.Windows.Forms.Button btnWeather_com;
     }
 }
 
